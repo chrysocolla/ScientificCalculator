@@ -4,7 +4,7 @@ import model.calculateType;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-
+// FIXME 这里因为用了JavaScript出乎意料的简洁，但考虑到作者连溢出都不曾处理，我有充分的理由相信他并没有测试过
 /**
  *
  * @author Idris Opeyemi

@@ -18,37 +18,20 @@ import calc.Solve;
  */
 public class ScientificButtons {
 
-    HBox row;
+    private static Integer rowPrefWidth = 350;
 
-    public ScientificButtons() {
-        row = new HBox(10);
+    // mixedFraction(), sqrt(), sqr(), caret(), log(), in()
+    // hypen(), dot(), hyp(), sin(), cos(), tan()
+    // rcl(), eng(), bracketOpen(), bracketClosed(), coma(), mplus()
+
+    private static HBox btnRowBuilder(JFXButton[] btnList) {
+        HBox row = new HBox(10);
         row.setPrefWidth(350);
+        row.setPadding(new Insets(0, 5, 5, 5));
+        row.getChildren().addAll(btnList);
+        return row;
     }
-
-    public HBox row2() {
-        HBox row2 = new HBox(10);
-        row2.setPrefWidth(350);
-        row2.setPadding(new Insets(0, 5, 5, 5));
-        row2.getChildren().addAll(mixedFraction(), sqrt(), sqr(), caret(), log(), in());
-        return row2;
-    }
-
-    public HBox row3() {
-        HBox row3 = new HBox(10);
-        row3.setPrefWidth(350);
-        row3.setPadding(new Insets(0, 5, 5, 5));
-        row3.getChildren().addAll(hypen(), dot(), hyp(), sin(), cos(), tan());
-        return row3;
-    }
-
-    public HBox row4() {
-        HBox row4 = new HBox(10);
-        row4.setPrefWidth(350);
-        row4.setPadding(new Insets(0, 5, 5, 5));
-        row4.getChildren().addAll(rcl(), eng(), bracketOpen(), bracketClosed(), coma(), mplus());
-        return row4;
-    }
-
+// TODO Redo this
 // region sci_buttons
     public HBox halfRow1() {
         HBox row1 = new HBox(10);
@@ -72,7 +55,7 @@ public class ScientificButtons {
         minusPower.setButtonType(JFXButton.ButtonType.RAISED);
         minusPower.getStyleClass().add("sciButton");
         minusPower.setTextFill(Color.WHITE);
-        minusPower.setPrefWidth((row.getPrefWidth() / 3) / 3);
+        minusPower.setPrefWidth((rowPrefWidth / 3) / 3);
         minusPower.setPrefHeight(20);
         minusPower.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -92,7 +75,7 @@ public class ScientificButtons {
         comb.setButtonType(JFXButton.ButtonType.RAISED);
         comb.getStyleClass().add("sciButton");
         comb.setTextFill(Color.WHITE);
-        comb.setPrefWidth((row.getPrefWidth() / 3) / 3);
+        comb.setPrefWidth((rowPrefWidth / 3) / 3);
         comb.setPrefHeight(20);
         comb.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -115,7 +98,7 @@ public class ScientificButtons {
         JFXButton cbrt = new JFXButton("x^3");
         cbrt.getStyleClass().add("sciButton");
         cbrt.setTextFill(Color.WHITE);
-        cbrt.setPrefWidth((row.getPrefWidth() / 3) / 3);
+        cbrt.setPrefWidth((rowPrefWidth / 3) / 3);
         cbrt.setPrefHeight(20);
         cbrt.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -134,7 +117,7 @@ public class ScientificButtons {
         pol.setButtonType(JFXButton.ButtonType.RAISED);
         pol.getStyleClass().add("sciButton");
         pol.setTextFill(Color.WHITE);
-        pol.setPrefWidth((row.getPrefWidth() / 3) / 3);
+        pol.setPrefWidth((rowPrefWidth / 3) / 3);
         pol.setPrefHeight(20);
         pol.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -165,7 +148,7 @@ public class ScientificButtons {
         mixedFrac.getStyleClass().add("sciButton");
         mixedFrac.setGraphic(fract);
         mixedFrac.setTextFill(Color.WHITE);
-        mixedFrac.setPrefWidth(row.getPrefWidth() / 6);
+        mixedFrac.setPrefWidth(rowPrefWidth / 6);
         mixedFrac.setPrefHeight(20);
         mixedFrac.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -183,7 +166,7 @@ public class ScientificButtons {
         sqroot.setButtonType(JFXButton.ButtonType.RAISED);
         sqroot.getStyleClass().add("sciButton");
         sqroot.setTextFill(Color.WHITE);
-        sqroot.setPrefWidth(row.getPrefWidth() / 6);
+        sqroot.setPrefWidth(rowPrefWidth / 6);
         sqroot.setPrefHeight(20);
         sqroot.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -202,7 +185,7 @@ public class ScientificButtons {
         sqr.setButtonType(JFXButton.ButtonType.RAISED);
         sqr.getStyleClass().add("sciButton");
         sqr.setTextFill(Color.WHITE);
-        sqr.setPrefWidth(row.getPrefWidth() / 6);
+        sqr.setPrefWidth(rowPrefWidth / 6);
         sqr.setPrefHeight(20);
         sqr.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -220,7 +203,7 @@ public class ScientificButtons {
         JFXButton caret = new JFXButton("˄");
         caret.getStyleClass().add("sciButton");
         caret.setTextFill(Color.WHITE);
-        caret.setPrefWidth(row.getPrefWidth() / 6);
+        caret.setPrefWidth(rowPrefWidth / 6);
         caret.setPrefHeight(20);
         caret.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -239,7 +222,7 @@ public class ScientificButtons {
         in.setButtonType(JFXButton.ButtonType.RAISED);
         in.getStyleClass().add("sciButton");
         in.setTextFill(Color.WHITE);
-        in.setPrefWidth(row.getPrefWidth() / 6);
+        in.setPrefWidth(rowPrefWidth / 6);
         in.setPrefHeight(20);
         in.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -256,7 +239,7 @@ public class ScientificButtons {
         log.setButtonType(JFXButton.ButtonType.RAISED);
         log.getStyleClass().add("sciButton");
         log.setTextFill(Color.WHITE);
-        log.setPrefWidth(row.getPrefWidth() / 6);
+        log.setPrefWidth(rowPrefWidth / 6);
         log.setPrefHeight(20);
         log.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -275,7 +258,7 @@ public class ScientificButtons {
         rcl.setButtonType(JFXButton.ButtonType.RAISED);
         rcl.getStyleClass().add("sciButton");
         rcl.setTextFill(Color.WHITE);
-        rcl.setPrefWidth(row.getPrefWidth() / 6);
+        rcl.setPrefWidth(rowPrefWidth / 6);
         rcl.setPrefHeight(20);
         rcl.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -292,7 +275,7 @@ public class ScientificButtons {
         eng.setButtonType(JFXButton.ButtonType.RAISED);
         eng.getStyleClass().add("sciButton");
         eng.setTextFill(Color.WHITE);
-        eng.setPrefWidth(row.getPrefWidth() / 6);
+        eng.setPrefWidth(rowPrefWidth / 6);
         eng.setPrefHeight(20);
         eng.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -309,7 +292,7 @@ public class ScientificButtons {
         bracketOpen.setButtonType(JFXButton.ButtonType.RAISED);
         bracketOpen.getStyleClass().add("sciButton");
         bracketOpen.setTextFill(Color.WHITE);
-        bracketOpen.setPrefWidth(row.getPrefWidth() / 6);
+        bracketOpen.setPrefWidth(rowPrefWidth / 6);
         bracketOpen.setPrefHeight(20);
         bracketOpen.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -327,7 +310,7 @@ public class ScientificButtons {
         bracketClosed.setButtonType(JFXButton.ButtonType.RAISED);
         bracketClosed.getStyleClass().add("sciButton");
         bracketClosed.setTextFill(Color.WHITE);
-        bracketClosed.setPrefWidth(row.getPrefWidth() / 6);
+        bracketClosed.setPrefWidth(rowPrefWidth / 6);
         bracketClosed.setPrefHeight(20);
         bracketClosed.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -345,7 +328,7 @@ public class ScientificButtons {
         coma.setButtonType(JFXButton.ButtonType.RAISED);
         coma.getStyleClass().add("sciButton");
         coma.setTextFill(Color.WHITE);
-        coma.setPrefWidth(row.getPrefWidth() / 6);
+        coma.setPrefWidth(rowPrefWidth / 6);
         coma.setPrefHeight(20);
         coma.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -362,7 +345,7 @@ public class ScientificButtons {
         mplus.setButtonType(JFXButton.ButtonType.RAISED);
         mplus.getStyleClass().add("sciButton");
         mplus.setTextFill(Color.WHITE);
-        mplus.setPrefWidth(row.getPrefWidth() / 6);
+        mplus.setPrefWidth(rowPrefWidth / 6);
         mplus.setPrefHeight(20);
         mplus.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -379,7 +362,7 @@ public class ScientificButtons {
         hypen.setButtonType(JFXButton.ButtonType.RAISED);
         hypen.getStyleClass().add("sciButton");
         hypen.setTextFill(Color.WHITE);
-        hypen.setPrefWidth(row.getPrefWidth() / 6);
+        hypen.setPrefWidth(rowPrefWidth / 6);
         hypen.setPrefHeight(20);
         hypen.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -396,7 +379,7 @@ public class ScientificButtons {
         dot.setButtonType(JFXButton.ButtonType.RAISED);
         dot.getStyleClass().add("sciButton");
         dot.setTextFill(Color.WHITE);
-        dot.setPrefWidth(row.getPrefWidth() / 6);
+        dot.setPrefWidth(rowPrefWidth / 6);
         dot.setPrefHeight(20);
         dot.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -413,7 +396,7 @@ public class ScientificButtons {
         hyp.setButtonType(JFXButton.ButtonType.RAISED);
         hyp.getStyleClass().add("sciButton");
         hyp.setTextFill(Color.WHITE);
-        hyp.setPrefWidth(row.getPrefWidth() / 6);
+        hyp.setPrefWidth(rowPrefWidth / 6);
         hyp.setPrefHeight(20);
         hyp.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -430,7 +413,7 @@ public class ScientificButtons {
         sin.setButtonType(JFXButton.ButtonType.RAISED);
         sin.getStyleClass().add("sciButton");
         sin.setTextFill(Color.WHITE);
-        sin.setPrefWidth(row.getPrefWidth() / 6);
+        sin.setPrefWidth(rowPrefWidth / 6);
         sin.setPrefHeight(20);
         sin.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -453,7 +436,7 @@ public class ScientificButtons {
         tan.setButtonType(JFXButton.ButtonType.RAISED);
         tan.getStyleClass().add("sciButton");
         tan.setTextFill(Color.WHITE);
-        tan.setPrefWidth(row.getPrefWidth() / 6);
+        tan.setPrefWidth(rowPrefWidth / 6);
         tan.setPrefHeight(20);
         tan.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
@@ -476,7 +459,7 @@ public class ScientificButtons {
         cos.setButtonType(JFXButton.ButtonType.RAISED);
         cos.getStyleClass().add("sciButton");
         cos.setTextFill(Color.WHITE);
-        cos.setPrefWidth(row.getPrefWidth() / 6);
+        cos.setPrefWidth(rowPrefWidth / 6);
         cos.setPrefHeight(20);
         cos.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {

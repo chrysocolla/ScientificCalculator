@@ -97,26 +97,22 @@ public class ScientificCalculatorController implements Initializable {
     }
 
     public VBox numberBox() {
-        // inputBtn numBtns = new inputBtn();
-        // VBox numBox = new VBox();
-        // numBox.getChildren().addAll(
-        //     numShiftRow1(),
-        //     numBtns.row1(),
-        //     numBtns.row2(),
-        //     numShiftRow3(),
-        //     numBtns.row3(),
-        //     numShiftRow4(),
-        //     numBtns.row4()
-        // );
         return inputBtn.inputBtn();
     }
-
+    // FIXME 显然这个在完成之前是用不了的
     public VBox sciBox() {
         VBox sciBox = new VBox();
-        sciBox.getChildren().addAll(sciShiftRow2(), new ScientificButtons().row2(), sciShiftRow3(), new ScientificButtons().row3(), sciShiftRow4(), new ScientificButtons().row4());
+        sciBox.getChildren().addAll(
+            sciShiftRow2(),
+            new ScientificButtons().row2(),
+            sciShiftRow3(),
+            new ScientificButtons().row3(),
+            sciShiftRow4(),
+            new ScientificButtons().row4()
+        );
         return sciBox;
     }
-
+    // 这玩意儿独一无二就不去碰它
     public BorderPane replay() {
         BorderPane replay = new BorderPane();
         replay.setPrefHeight(0);
@@ -171,6 +167,7 @@ public class ScientificCalculatorController implements Initializable {
         return replay;
     }
 
+    // FIXME 此处有溢出的可能
     public void getPrev() {
         String prevToCal = Screen.getToCalculate().get(Screen.getToCalculate().size() - 1);
         String prevResult = Screen.getResultList().get(Screen.getResultList().size() - 1);
@@ -186,6 +183,7 @@ public class ScientificCalculatorController implements Initializable {
         }
     }
 
+    // FIXME 这里也应注意
     public void getNext() {
         if (Screen.getToCalculate().contains(Screen.getTypeField().getText())) {
             int index2 = Screen.getToCalculate().indexOf(Screen.getTypeField().getText());
@@ -196,6 +194,7 @@ public class ScientificCalculatorController implements Initializable {
         }
     }
 
+    // 显然这里是左上两个按钮
     public VBox topBox() {
         VBox shiftAlpha = new VBox();
         shiftAlpha.setPrefWidth(panelBox.getPrefWidth() / 3);
@@ -231,22 +230,25 @@ public class ScientificCalculatorController implements Initializable {
         return shiftAlpha;
     }
 
+    // 这个是左上的标签
     public VBox ShiftTopBox() {
-        VBox row3 = new VBox();
-        row3.setPadding(Insets.EMPTY);
-        row3.setPrefWidth(panelBox.getPrefWidth() / 3);
         Label shift = new Label("Shift");
         shift.setTextFill(Color.GOLDENROD);
-        row3.setAlignment(Pos.BOTTOM_LEFT);
         // VBox.setMargin(shift, new Insets(0, 50, 0, 0));
 
         Label alpha = new Label("Alpha");
         alpha.setTextFill(Color.MEDIUMVIOLETRED);
         VBox.setMargin(alpha, new Insets(-10, 0, 0, row3.getPrefWidth() / 2));
+
+        VBox row3 = new VBox();
+        row3.setPadding(Insets.EMPTY);
+        row3.setPrefWidth(panelBox.getPrefWidth() / 3);
         row3.getChildren().addAll(shift, alpha);
+        row3.setAlignment(Pos.BOTTOM_LEFT);
         return row3;
     }
-
+    
+    // 下面两个为右上的对应部分
     public VBox rightTopBox() {
         VBox modeOn = new VBox();
         modeOn.setPrefWidth(panelBox.getPrefWidth() / 3);
@@ -287,6 +289,7 @@ public class ScientificCalculatorController implements Initializable {
         return row3;
     }
 
+    // FIXME 原作者什么毛病复制这么多遍，命名还瞎命名
     public HBox shiftHalfSciRow1() {
         HBox row3 = new HBox();
         row3.setPrefWidth(panelBox.getPrefWidth() / 3);
@@ -315,6 +318,8 @@ public class ScientificCalculatorController implements Initializable {
         row3.getChildren().addAll(rec, cuberoot);
         return row3;
     }
+
+    // FIXME 底下的照猫画虎去掉就行了
 
     public HBox sciShiftRow2() {
         HBox row1 = new HBox();
@@ -409,62 +414,4 @@ public class ScientificCalculatorController implements Initializable {
         return row1;
     }
 
-    public HBox numShiftRow1() {
-        HBox row1 = new HBox();
-        row1.setPrefWidth(panelBox.getPrefWidth());
-        // row1.setPadding(new Insets(5));
-
-        Label ins = new Label("INS");
-        ins.setTextFill(Color.GOLD);
-        ins.setPadding(new Insets(0, 25, 0, 15));
-        row1.setAlignment(Pos.TOP_RIGHT);
-
-        Label off = new Label("OFF");
-        off.setTextFill(Color.GOLD);
-        off.setPadding(new Insets(0, 15, 0, 25));
-        row1.getChildren().addAll(ins, off);
-
-        return row1;
-    }
-
-    public HBox numShiftRow3() {
-        HBox row3 = new HBox();
-        row3.setPrefWidth(panelBox.getPrefWidth());
-        Label sum = new Label("S-SUM");
-        sum.setTextFill(Color.GOLD);
-        sum.setPadding(new Insets(0, 10, 0, 15));
-
-        Label var = new Label("S-VAR");
-        var.setTextFill(Color.GOLD);
-        var.setPadding(new Insets(0, 15, 0, 10));
-        row3.getChildren().addAll(sum, var);
-        return row3;
-    }
-
-    public HBox numShiftRow4() {
-        HBox row3 = new HBox();
-        row3.setPrefWidth(panelBox.getPrefWidth());
-        Label rnd = new Label("Rnd");
-        rnd.setTextFill(Color.GOLD);
-        rnd.setPadding(new Insets(0, 20, 0, 20));
-
-        Label ran = new Label("Ran#");
-        ran.setTextFill(Color.GOLD);
-        ran.setPadding(new Insets(0, 20, 0, 20));
-
-        Label pie = new Label("π");
-        pie.setTextFill(Color.GOLD);
-        pie.setPadding(new Insets(0, 20, 0, 20));
-
-        Label drg = new Label("DRG");
-        drg.setTextFill(Color.GOLD);
-        drg.setPadding(new Insets(0, 20, 0, 20));
-
-        Label percent = new Label("%");
-        percent.setTextFill(Color.GOLD);
-        percent.setPadding(new Insets(0, 20, 0, 20));
-
-        row3.getChildren().addAll(rnd, ran, pie, drg, percent);
-        return row3;
-    }
 }
