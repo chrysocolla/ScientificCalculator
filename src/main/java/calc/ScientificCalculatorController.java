@@ -1,7 +1,7 @@
 package calc;
 
 import calc.buttons.ScientificButtons;
-import calc.buttons.NumberButtons;
+import calc.buttons.inputBtn;
 import model.calculateType;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -97,18 +97,18 @@ public class ScientificCalculatorController implements Initializable {
     }
 
     public VBox numberBox() {
-        NumberButtons numBtns = new NumberButtons();
-        VBox numBox = new VBox();
-        numBox.getChildren().addAll(
-            numShiftRow1(),
-            numBtns.row1(),
-            numBtns.row2(),
-            numShiftRow3(),
-            numBtns.row3(),
-            numShiftRow4(),
-            numBtns.row4()
-        );
-        return numBox;
+        // inputBtn numBtns = new inputBtn();
+        // VBox numBox = new VBox();
+        // numBox.getChildren().addAll(
+        //     numShiftRow1(),
+        //     numBtns.row1(),
+        //     numBtns.row2(),
+        //     numShiftRow3(),
+        //     numBtns.row3(),
+        //     numShiftRow4(),
+        //     numBtns.row4()
+        // );
+        return inputBtn.inputBtn();
     }
 
     public VBox sciBox() {
