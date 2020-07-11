@@ -1,18 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 /**
  *
  * @author Idris Opeyemi
+ * @author Aristolochic, wangruory@bupt.edu.cn
  */
 public class calculateType {
     private static String type;
     private static Boolean calculated = false;
-    private static Boolean shifMode = false;
+    private static Boolean shiftMode = false;
 
     public static String getType() {
         return type;
@@ -30,12 +26,12 @@ public class calculateType {
         calculateType.calculated = calculated;
     }
 
-    public static Boolean getShifMode() {
-        return shifMode;
+    public static Boolean getShiftMode() {
+        return shiftMode;
     }
 
-    public static void setShifMode(Boolean shifMode) {
-        calculateType.shifMode = shifMode;
+    public static void setShiftMode(Boolean shiftMode) {
+        calculateType.shiftMode = shiftMode;
     }
     
 }

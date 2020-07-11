@@ -28,15 +28,16 @@ public class Screen {
     public Screen() {
     }
 
+    // TODO Migerate this to View
     public VBox calculateScreen() {
         VBox calculate = new VBox();
-        Text mode = new Text("DEG");     
+        Text mode = new Text("DEG");
 
         typeField = new JFXTextField();
         typeField.getStyleClass().add("typefont");
         typeField.setFocusColor(Color.WHITE);
         typeField.setUnFocusColor(Color.WHITE);
-//        typeField.setFocusTraversable(false);
+        // typeField.setFocusTraversable(false);
         typeField.setEditable(false);
 
         result = new JFXTextField();
@@ -65,16 +66,16 @@ public class Screen {
         return toCalculate;
     }
 
-    public static void setToCalculate(ObservableList<String> toCalculate) {
-        Screen.toCalculate = toCalculate;
-    }
+    // public static void setToCalculate(ObservableList<String> toCalculate) {
+    //     Screen.toCalculate = toCalculate;
+    // }
 
     public static ObservableList<String> getResultList() {
         return resultList;
     }
 
-    public static void setResultList(ObservableList<String> resultList) {
-        Screen.resultList = resultList;
-    }
+    // public static void setResultList(ObservableList<String> resultList) {
+    //     Screen.resultList = resultList;
+    // }
 
 }

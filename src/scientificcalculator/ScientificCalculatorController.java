@@ -31,9 +31,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 /**
- * FXML Controller class
  *
  * @author Idris Opeyemi
+ * @author Aristolochic, wangruory@bupt.edu.cn
  */
 public class ScientificCalculatorController implements Initializable {
 
@@ -47,14 +47,12 @@ public class ScientificCalculatorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        System.out.println(Math.IEEEremainder(7, 3));
-//        System.out.println(Math.);
         calculateType.setType("Normal");
         panel();
     }
 
     public void panel() {
-//        anchorPane.getStyleClass().add("anchorPane");
+        // anchorPane.getStyleClass().add("anchorPane");
         panelBox = new VBox(5);
         CubicCurve curve = new CubicCurve(-175, 0, 0, 25, 50, 17.5, 175, 0);
         curve.setFill(Color.TRANSPARENT);
@@ -99,13 +97,22 @@ public class ScientificCalculatorController implements Initializable {
         AnchorPane.setLeftAnchor(curve, 18.952728271484375);
         AnchorPane.setRightAnchor(curve, 18.952728271484375);
         AnchorPane.setBottomAnchor(curve, -1.0);
-//        anchorPane.getChildren().add(curve);
+        // anchorPane.getChildren().add(curve);
         anchorPane.getChildren().add(panelBox);
     }
 
     public VBox numberBox() {
+        NumberButtons numBtns = new NumberButtons();
         VBox numBox = new VBox();
-        numBox.getChildren().addAll(numShiftRow1(), new NumberButtons().row1(), new NumberButtons().row2(), numShiftRow3(), new NumberButtons().row3(), numShiftRow4(), new NumberButtons().row4());
+        numBox.getChildren().addAll(
+            numShiftRow1(),
+            numBtns.row1(),
+            numBtns.row2(),
+            numShiftRow3(),
+            numBtns.row3(),
+            numShiftRow4(),
+            numBtns.row4()
+        );
         return numBox;
     }
 
@@ -181,7 +188,6 @@ public class ScientificCalculatorController implements Initializable {
         } else {
             Screen.getTypeField().setText(prevToCal);
             Screen.getResult().setText(prevResult);
-//        }
         }
     }
 
@@ -207,11 +213,11 @@ public class ScientificCalculatorController implements Initializable {
         shift.setPrefWidth(shiftAlpha.getPrefWidth() / 3);
         shift.setOnAction((ev) -> {
             if (shift.getStyleClass().contains("modeColor")) {
-                calculateType.setShifMode(Boolean.TRUE);
+                calculateType.setShiftMode(Boolean.TRUE);
                 shift.getStyleClass().remove("modeColor");
                 shift.getStyleClass().add("shiftModeColor");
             } else if (shift.getStyleClass().contains("shiftModeColor")) {
-                calculateType.setShifMode(Boolean.FALSE);
+                calculateType.setShiftMode(Boolean.FALSE);
                 shift.getStyleClass().remove("shiftModeColor");
                 shift.getStyleClass().add("modeColor");
             }
@@ -237,7 +243,7 @@ public class ScientificCalculatorController implements Initializable {
         Label shift = new Label("Shift");
         shift.setTextFill(Color.GOLDENROD);
         row3.setAlignment(Pos.BOTTOM_LEFT);
-//        VBox.setMargin(shift, new Insets(0, 50, 0, 0));
+        // VBox.setMargin(shift, new Insets(0, 50, 0, 0));
 
         Label alpha = new Label("Alpha");
         alpha.setTextFill(Color.MEDIUMVIOLETRED);
@@ -411,7 +417,7 @@ public class ScientificCalculatorController implements Initializable {
     public HBox numShiftRow1() {
         HBox row1 = new HBox();
         row1.setPrefWidth(panelBox.getPrefWidth());
-//        row1.setPadding(new Insets(5));
+        // row1.setPadding(new Insets(5));
 
         Label ins = new Label("INS");
         ins.setTextFill(Color.GOLD);
@@ -422,6 +428,7 @@ public class ScientificCalculatorController implements Initializable {
         off.setTextFill(Color.GOLD);
         off.setPadding(new Insets(0, 15, 0, 25));
         row1.getChildren().addAll(ins, off);
+
         return row1;
     }
 

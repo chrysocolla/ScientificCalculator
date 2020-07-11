@@ -29,7 +29,7 @@ public class Solve {
                 solvedPow = (float) (Math.pow(left, right));
                 int round = Math.round(solvedPow);
                 calculate = calculate.replace("" + parts[i - 1] + parts[i] + parts[i + 1], "" + round);
-//                System.out.println(calculate);
+                // System.out.println(calculate);
                 break;
             }
         }
