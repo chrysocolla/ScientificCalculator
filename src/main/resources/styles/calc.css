@@ -50,7 +50,7 @@
     -fx-padding: 0;
 
 }
-.delac{
+.delacButton{
     -fx-background-color:#a3446a ;
     -fx-background-radius: 5 5 10 10;
     -fx-font-size: 16px;
@@ -62,7 +62,7 @@
     -fx-background-radius: 25 25 50 50;
     -fx-background-color: #0d1e33;
 }
-.borderpane{
+.borderPane{
     -fx-background-radius: 20 20 50 50;
     -fx-background-color:#cccccc ;
     /*-fx-margin: 200 200 200 200;*/

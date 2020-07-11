@@ -1,4 +1,4 @@
-package scientificcalculator.buttons;
+package calc.buttons;
 
 import model.calculateType;
 import com.jfoenix.controls.JFXButton;
@@ -10,9 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import scientificcalculator.ScientificCalculator;
-import scientificcalculator.Screen;
-import scientificcalculator.Solve;
+import calc.ScientificCalculator;
+import calc.Screen;
+import calc.Solve;
 
 /**
  *
@@ -115,7 +115,7 @@ public class NumberButtons {
     private JFXButton delBtn() {
         JFXButton delBtn = new JFXButton();
 
-        ImageView delIcon = new ImageView(new Image(ScientificCalculator.class.getResource("delete.png").toExternalForm()));
+        ImageView delIcon = new ImageView(new Image(ScientificCalculator.class.getResource("/images/delete.png").toExternalForm()));
         delIcon.setFitWidth(20);
         delIcon.setFitHeight(20);
         ColorAdjust white = new ColorAdjust();
@@ -128,7 +128,7 @@ public class NumberButtons {
         delBtn.setGraphic(delIcon);
         delBtn.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         delBtn.setButtonType(JFXButton.ButtonType.RAISED);
-        delBtn.getStyleClass().add("delac");
+        delBtn.getStyleClass().add("delacButton");
         delBtn.setPrefWidth(row.getPrefWidth() / 5);
         delBtn.setPrefHeight(25);
         delBtn.setOnAction((ev) -> {
@@ -137,14 +137,16 @@ public class NumberButtons {
                 Screen.getTypeField().setText("");
                 calculateType.setCalculated(Boolean.FALSE);
             }
-            Screen.getTypeField().setText(Screen.getTypeField().getText().toString().substring(0, Screen.getTypeField().getText().length() - 1));
+            String screenText = Screen.getTypeField().getText().toString();
+            if (screenText.length() >= 1)
+                Screen.getTypeField().setText(screenText.substring(0, screenText.length() - 1));
         });
         return delBtn;
     }
 
     private JFXButton acBtn() {
         JFXButton acBtn = new JFXButton("AC");
-        setupBaseAttribute(acBtn, "delac");
+        setupBaseAttribute(acBtn, "delacButton");
         acBtn.setOnAction((ev) -> {
             Screen.getResult().setText("");
             Screen.getTypeField().setText("");

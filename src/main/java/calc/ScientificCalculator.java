@@ -1,4 +1,4 @@
-package scientificcalculator;
+package calc;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,19 +17,10 @@ public class ScientificCalculator extends Application {
 
     private static Stage primaryStage;
 
-    public static Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
-    public static void setPrimaryStage(Stage primaryStage) {
-        ScientificCalculator.primaryStage = primaryStage;
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Font.loadFont(ScientificCalculator.class.getResource("digital-7.ttf").toExternalForm(), 10);
-
-        Parent root = FXMLLoader.load(getClass().getResource("ScientificCalculator.fxml"));
+        Font.loadFont(ScientificCalculator.class.getResource("/fonts/digital-7.ttf").toExternalForm(), 10);
+        Parent root = FXMLLoader.load(getClass().getResource("/templates/calc.fxml"));
         System.out.println(root.toString());
         root.getStyleClass().add("anchorPane");
         Scene scene = new Scene(root);
@@ -43,7 +34,6 @@ public class ScientificCalculator extends Application {
         primaryStage.setResizable(false);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
-//        primaryStage.styl
     }
 
     /**

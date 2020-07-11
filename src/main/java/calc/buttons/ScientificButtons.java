@@ -1,4 +1,4 @@
-package scientificcalculator.buttons;
+package calc.buttons;
 
 import model.calculateType;
 import com.jfoenix.controls.JFXButton;
@@ -8,8 +8,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import scientificcalculator.Screen;
-import scientificcalculator.Solve;
+import calc.Screen;
+import calc.Solve;
 
 /**
  *
@@ -211,7 +211,7 @@ public class ScientificButtons {
                 calculateType.setCalculated(Boolean.FALSE);
             }
             calculateType.setType("Normal");
-            Screen.getTypeField().appendText("x^2");
+            Screen.getTypeField().appendText("^2");
         });
         return sqr;
     }

@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package scientificcalculator;
+package calc;
 
-import scientificcalculator.buttons.ScientificButtons;
-import scientificcalculator.buttons.NumberButtons;
+import calc.buttons.ScientificButtons;
+import calc.buttons.NumberButtons;
 import model.calculateType;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -172,7 +167,7 @@ public class ScientificCalculatorController implements Initializable {
         replay.setBottom(down);
         replay.setRight(right);
         replay.setCenter(center);
-        replay.getStyleClass().add("borderpane");
+        replay.getStyleClass().add("borderPane");
         return replay;
     }
 

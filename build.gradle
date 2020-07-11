@@ -14,6 +14,21 @@ plugins {
     id 'application'
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+// sourceSets {
+//     main {
+//         java {
+//             srcDir 'src/java'
+//         }
+//         resources {
+//             srcDir 'src/resources'
+//         }
+//     }
+// }
+
 repositories {
     // You can declare any Maven/Ivy/file repository here.
     maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/' }
@@ -23,11 +38,26 @@ repositories {
 dependencies {
     // https://mvnrepository.com/artifact/com.jfoenix/jfoenix
     compile 'com.jfoenix:jfoenix:9.0.10'
-    // https://mvnrepository.com/artifact/de.jensd/fontawesomefx
-    compile 'de.jensd:fontawesomefx:8.9'
+    // https://mvnrepository.com/artifact/de.jensd/fontawesomefx-fontawesome
+    compile 'de.jensd:fontawesomefx-fontawesome:4.7.0-9.1.2'
 }
 
 application {
     // Define the main class for the application.
-    mainClassName = 'calc.App'
+    mainClassName = 'calc.ScientificCalculator'
+}
+
+task uberJar(type: Jar) {
+    archiveClassifier = 'uber'
+
+    from sourceSets.main.output
+
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
+
+    manifest {
+        attributes 'Main-Class': 'calc.ScientificCalculator'
+    }
 }
