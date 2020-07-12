@@ -1,7 +1,7 @@
-package calc;
+package viewcontroller.components;
 
 import model.calculateType;
-import calc.Screen;
+import viewcontroller.components.Screen;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -34,7 +34,6 @@ public class Solve {
 
         try {
             Object answer = engine.eval(calculate);
-            System.out.println(answer.toString());
             Screen.getResultList().add(answer.toString());
             Screen.getResult().setText(answer.toString());
             calculateType.setCalculated(Boolean.TRUE);

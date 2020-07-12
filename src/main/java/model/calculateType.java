@@ -6,9 +6,9 @@ package model;
  * @author Aristolochic, wangruory@bupt.edu.cn
  */
 public class calculateType {
-    private static Boolean workType = false;
-    private static Boolean calculated = false;
-    private static Boolean shiftMode = false;
+    private static Boolean workType = Boolean.FALSE;
+    private static Boolean calculated =  Boolean.FALSE;
+    private static Boolean shiftMode =  Boolean.FALSE;
 
     public static Boolean getWorkType() {
         return workType;

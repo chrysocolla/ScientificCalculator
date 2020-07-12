@@ -1,4 +1,4 @@
-package calc;
+package viewcontroller.components;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
@@ -15,7 +15,6 @@ import javafx.scene.text.Text;
  * @author Aristolochic, wangruory@bupt.edu.cn
  */
 public class Screen {
-
     private static JFXTextField typeField;
     private static JFXTextField result;
     private static ObservableList<String> toCalculate = FXCollections.observableArrayList();

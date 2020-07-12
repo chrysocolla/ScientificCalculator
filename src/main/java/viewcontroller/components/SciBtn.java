@@ -1,5 +1,6 @@
-package calc.buttons;
+package viewcontroller.components;
 
+import viewcontroller.components.Screen;
 import model.calculateType;
 import com.jfoenix.controls.JFXButton;
 import javafx.scene.control.Label;
@@ -11,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.text.Font;
-import calc.Screen;
 import java.util.ArrayList;
 
 /**
@@ -118,19 +118,6 @@ public class SciBtn {
         return bigShiftLabel;
     }
 
-// VBox sciBox = new VBox();
-// sciBox.getChildren().addAll(
-//     sciShiftRow2(),
-//     new sciBtn().row2(),
-//     sciShiftRow3(),
-//     new sciBtn().row3(),
-//     sciShiftRow4(),
-//     new sciBtn().row4()
-// );
-// return sciBox;
-
-// TODO Redo this
-// region sci_buttons
     public static HBox leftRow() {
         HBox row = new HBox(10);
         row.setPrefWidth(rowPrefWidth / 3);
@@ -146,100 +133,6 @@ public class SciBtn {
         row.getChildren().addAll(pol(), cbrt());
         return row;
     }
-    // TODO 这个迟早要删
-    // private HBox sciShiftRow2() {
-
-    //     Label improperFract = new Label("d/c");
-    //     improperFract.setTextFill(Color.DARKGOLDENROD);
-    //     improperFract.setPadding(new Insets(0, 95, 0, 12));
-
-    //     Label root = new Label("x√");
-    //     root.setTextFill(Color.DARKGOLDENROD);
-    //     root.setPadding(new Insets(0, 15, 0, 40));
-
-    //     Label tenExp = new Label("10^x");
-    //     tenExp.setTextFill(Color.DARKGOLDENROD);
-    //     tenExp.setPadding(new Insets(0, 15, 0, 15));
-
-    //     Label eExp = new Label("e^x");
-    //     eExp.setTextFill(Color.DARKGOLDENROD);
-    //     eExp.setPadding(new Insets(0, 15, 0, 20));
-    //     row1.getChildren().addAll(improperFract, root, tenExp, eExp);
-
-    //     HBox row1 = new HBox();
-    //     row1.setPrefWidth(panelBox.getPrefWidth());
-    //     return row1;
-    // }
-
-    // private HBox sciShiftRow3() {
-    //     HBox row1 = new HBox();
-    //     row1.setPrefWidth(panelBox.getPrefWidth());
-
-    //     Label alphaA = new Label("A");
-    //     alphaA.setTextFill(Color.MEDIUMVIOLETRED);
-    //     alphaA.setPadding(new Insets(0, 0, 0, 35));
-
-    //     Label alphaB = new Label("B");
-    //     alphaB.setTextFill(Color.MEDIUMVIOLETRED);
-    //     alphaB.setPadding(new Insets(0, 0, 0, 45));
-
-    //     Label alphaC = new Label("C");
-    //     alphaC.setTextFill(Color.MEDIUMVIOLETRED);
-    //     alphaC.setPadding(new Insets(0, 0, 0, 45));
-
-    //     Label sinInv = new Label("sin-1");
-    //     sinInv.setTextFill(Color.DARKGOLDENROD);
-    //     sinInv.setPadding(new Insets(0, 0, 0, 10));
-
-    //     Label alphaD = new Label("D");
-    //     alphaD.setTextFill(Color.MEDIUMVIOLETRED);
-    //     alphaD.setPadding(new Insets(0, 0, 0, 7));
-
-    //     Label cosInv = new Label("cos-1");
-    //     cosInv.setTextFill(Color.DARKGOLDENROD);
-    //     cosInv.setPadding(new Insets(0, 0, 0, 8));
-
-    //     Label alphaE = new Label("E");
-    //     alphaE.setTextFill(Color.MEDIUMVIOLETRED);
-    //     alphaE.setPadding(new Insets(0, 0, 0, 7));
-
-    //     Label tanInv = new Label("tan-1");
-    //     tanInv.setTextFill(Color.DARKGOLDENROD);
-    //     tanInv.setPadding(new Insets(0, 0, 0, 8));
-
-    //     Label alphaF = new Label("F");
-    //     alphaF.setTextFill(Color.MEDIUMVIOLETRED);
-    //     alphaF.setPadding(new Insets(0, 0, 0, 7));
-    //     row1.getChildren().addAll(alphaA, alphaB, alphaC, sinInv, alphaD, cosInv, alphaE, tanInv, alphaF);
-    //     return row1;
-    // }
-
-    // private HBox sciShiftRow4() {
-    //     HBox row1 = new HBox();
-    //     row1.setPrefWidth(panelBox.getPrefWidth());
-
-    //     Label sto = new Label("STO");
-    //     sto.setTextFill(Color.DARKGOLDENROD);
-    //     sto.setPadding(new Insets(0, 0, 0, 10));
-
-    //     Label alphaX = new Label("X");
-    //     alphaX.setTextFill(Color.MEDIUMVIOLETRED);
-    //     alphaX.setPadding(new Insets(0, 0, 0, (panelBox.getPrefWidth() / 2) - 13));
-
-    //     Label colon = new Label(":");
-    //     colon.setTextFill(Color.DARKGOLDENROD);
-    //     colon.setPadding(new Insets(0, 0, 0, 8));
-
-    //     Label alphaY = new Label("Y");
-    //     alphaY.setTextFill(Color.MEDIUMVIOLETRED);
-    //     alphaY.setPadding(new Insets(0, 0, 0, 30));
-
-    //     Label alphaM = new Label("M");
-    //     alphaM.setTextFill(Color.MEDIUMVIOLETRED);
-    //     alphaM.setPadding(new Insets(0, 0, 0, 40));
-    //     row1.getChildren().addAll(sto, alphaX, colon, alphaY, alphaM);
-    //     return row1;
-    // }
 
     private static JFXButton minusPower() {
         JFXButton btn = btn("x^-1", "^-1", "");
@@ -248,8 +141,7 @@ public class SciBtn {
     }
 
     private static JFXButton comb() {
-        calculateType.setWorkType(Boolean.TRUE);
-        JFXButton btn = btn("nCr", "C", "P");
+        JFXButton btn = baseBtn("nCr", "C", "P", Boolean.TRUE);
         btn.setPrefWidth((rowPrefWidth / 3) / 3);
         return btn;
     }
@@ -292,7 +184,7 @@ public class SciBtn {
         return mixedFrac;
     }
 
-    private static JFXButton btn(String label, String text, String shiftText) {
+    private static JFXButton baseBtn(String label, String text, String shiftText, Boolean workType) {
         JFXButton btn = new JFXButton(label);
         btn.setButtonType(JFXButton.ButtonType.RAISED);
         btn.getStyleClass().add("sciButton");
@@ -310,8 +202,12 @@ public class SciBtn {
             } else {
                 Screen.getTypeField().appendText(text);
             }
-            calculateType.setWorkType(Boolean.FALSE);
+            calculateType.setWorkType(workType);
         });
         return btn;
+    }
+
+    private static JFXButton btn(String label, String text, String shiftText) {
+        return baseBtn(label, text, shiftText, Boolean.FALSE);
     }
 }

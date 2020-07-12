@@ -44,7 +44,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'calc.ScientificCalculator'
+    mainClassName = 'viewcontroller.ScientificCalculator'
 }
 
 task uberJar(type: Jar) {
@@ -58,6 +58,6 @@ task uberJar(type: Jar) {
     }
 
     manifest {
-        attributes 'Main-Class': 'calc.ScientificCalculator'
+        attributes 'Main-Class': 'viewcontroller.ScientificCalculator'
     }
 }

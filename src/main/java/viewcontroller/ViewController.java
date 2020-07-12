@@ -1,7 +1,8 @@
-package calc;
+package viewcontroller;
 
-import calc.buttons.SciBtn;
-import calc.buttons.InputBtn;
+import viewcontroller.components.SciBtn;
+import viewcontroller.components.InputBtn;
+import viewcontroller.components.Screen;
 import model.calculateType;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -30,7 +31,7 @@ import javafx.scene.text.Text;
  * @author Idris Opeyemi
  * @author Aristolochic, wangruory@bupt.edu.cn
  */
-public class ScientificCalculatorController implements Initializable {
+public class ViewController implements Initializable {
 
     @FXML
     private AnchorPane anchorPane;

@@ -1,4 +1,4 @@
-package calc.buttons;
+package viewcontroller.components;
 
 import model.calculateType;
 import com.jfoenix.controls.JFXButton;
@@ -13,9 +13,9 @@ import javafx.scene.text.Font;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import calc.ScientificCalculator;
-import calc.Screen;
-import calc.Solve;
+import viewcontroller.ScientificCalculator;
+import viewcontroller.components.Screen;
+import viewcontroller.components.Solve;
 import java.util.ArrayList;
 
 /**
@@ -79,7 +79,7 @@ public class InputBtn {
         return shiftLabel;
     }
 
-    private static JFXButton btn(String label, String text, String styleClass, String result) {
+    private static JFXButton btn(String label, String text, String styleClass) {
         JFXButton btn = new JFXButton(label);
         btn.setButtonType(JFXButton.ButtonType.RAISED);
         btn.getStyleClass().add(styleClass);
@@ -88,8 +88,8 @@ public class InputBtn {
         btn.setPrefHeight(25);
         btn.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
+                Screen.getTypeField().setText("");
                 Screen.getResult().setText("");
-                Screen.getTypeField().setText(result);
                 calculateType.setCalculated(Boolean.FALSE);
             }
             Screen.getTypeField().appendText(text);
@@ -98,15 +98,29 @@ public class InputBtn {
     }
 
     private static JFXButton numBtn(String label) {
-        return btn(label, label, "numButton", "");
+        return btn(label, label, "numButton");
     }
 
     private static JFXButton methodBtn(String label) {
-        return btn(label, label, "numButton", Screen.getResult().getText());
+        JFXButton btn = new JFXButton(label);
+        btn.setButtonType(JFXButton.ButtonType.RAISED);
+        btn.getStyleClass().add("numButton");
+        btn.setTextFill(Color.WHITE);
+        btn.setPrefWidth(rowPrefWidth / 5);
+        btn.setPrefHeight(25);
+        btn.setOnAction((ev) -> {
+            if (calculateType.getCalculated()) {
+                Screen.getTypeField().setText(Screen.getResult().getText());
+                Screen.getResult().setText("");
+                calculateType.setCalculated(Boolean.FALSE);
+            }
+            Screen.getTypeField().appendText(label);
+        });
+        return btn;
     }
 
     private static JFXButton dummyBtn(String label) {
-        return btn(label, "", "numButton", "");
+        return btn(label, "", "numButton");
     }
 
     private static JFXButton delBtn() {

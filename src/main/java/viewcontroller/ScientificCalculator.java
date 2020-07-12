@@ -1,5 +1,7 @@
-package calc;
+package viewcontroller;
 
+import model.calculateType;
+import viewcontroller.components.Solve;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
