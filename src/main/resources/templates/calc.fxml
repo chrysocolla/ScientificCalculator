@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="calc.ScientificCalculatorController">
-    <stylesheets>
-        <URL value="@/styles/calc.css" />
-    </stylesheets>
+  <stylesheets>
+      <URL value="@/styles/calc.css" />
+  </stylesheets>
 </AnchorPane>

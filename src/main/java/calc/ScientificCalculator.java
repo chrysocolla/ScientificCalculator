@@ -21,7 +21,6 @@ public class ScientificCalculator extends Application {
     public void start(Stage primaryStage) throws Exception {
         Font.loadFont(ScientificCalculator.class.getResource("/fonts/digital-7.ttf").toExternalForm(), 10);
         Parent root = FXMLLoader.load(getClass().getResource("/templates/calc.fxml"));
-        System.out.println(root.toString());
         root.getStyleClass().add("anchorPane");
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);

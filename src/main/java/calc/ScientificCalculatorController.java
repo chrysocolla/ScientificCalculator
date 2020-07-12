@@ -1,7 +1,7 @@
 package calc;
 
-import calc.buttons.ScientificButtons;
-import calc.buttons.inputBtn;
+import calc.buttons.SciBtn;
+import calc.buttons.InputBtn;
 import model.calculateType;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -42,15 +42,7 @@ public class ScientificCalculatorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        calculateType.setType("Normal");
-        panel();
-    }
-
-    public void panel() {
-        // anchorPane.getStyleClass().add("anchorPane");
         panelBox = new VBox(5);
-        CubicCurve curve = new CubicCurve(-175, 0, 0, 25, 50, 17.5, 175, 0);
-        curve.setFill(Color.TRANSPARENT);
         panelBox.setPrefWidth(350);
         panelBox.setPadding(new Insets(20));
         panelBox.setOnKeyPressed((act) -> {
@@ -68,22 +60,25 @@ public class ScientificCalculatorController implements Initializable {
             }
         });
 
-        VBox calculate = new VBox();
-        calculate = new Screen().calculateScreen();
+        CubicCurve curve = new CubicCurve(-175, 0, 0, 25, 50, 17.5, 175, 0);
+        curve.setFill(Color.TRANSPARENT);
 
-        Region reg = new Region();
-        VBox.setVgrow(reg, Priority.ALWAYS);
-
-        VBox numberBox = numberBox();
-        VBox sciBox = sciBox();
+        VBox calculate = Screen.screenView();
 
         HBox topBox = new HBox();
         topBox.setPadding(new Insets(20, 5, 0, 5));
         topBox.setPrefWidth(panelBox.getPrefWidth());
-        topBox.getChildren().addAll(topBox(), replay(), rightTopBox());
+        topBox.getChildren().addAll(leftTopBox(), replay(), rightTopBox());
+
+        VBox numBox = InputBtn.inputBtnView();
+
+        Region reg = new Region();
+        VBox.setVgrow(reg, Priority.ALWAYS);
+
+        VBox sciBox = SciBtn.sciBtnView();
 
         panelBox.getChildren().add(curve);
-        panelBox.getChildren().addAll(calculate, topBox, sciBox, reg, numberBox);
+        panelBox.getChildren().addAll(calculate, topBox, sciBox, reg, numBox);
 
         AnchorPane.setLeftAnchor(panelBox, 1.0);
         AnchorPane.setRightAnchor(panelBox, 1.0);
@@ -92,28 +87,11 @@ public class ScientificCalculatorController implements Initializable {
         AnchorPane.setLeftAnchor(curve, 18.952728271484375);
         AnchorPane.setRightAnchor(curve, 18.952728271484375);
         AnchorPane.setBottomAnchor(curve, -1.0);
-        // anchorPane.getChildren().add(curve);
         anchorPane.getChildren().add(panelBox);
     }
 
-    public VBox numberBox() {
-        return inputBtn.inputBtn();
-    }
-    // FIXME 显然这个在完成之前是用不了的
-    public VBox sciBox() {
-        VBox sciBox = new VBox();
-        sciBox.getChildren().addAll(
-            sciShiftRow2(),
-            new ScientificButtons().row2(),
-            sciShiftRow3(),
-            new ScientificButtons().row3(),
-            sciShiftRow4(),
-            new ScientificButtons().row4()
-        );
-        return sciBox;
-    }
     // 这玩意儿独一无二就不去碰它
-    public BorderPane replay() {
+    private BorderPane replay() {
         BorderPane replay = new BorderPane();
         replay.setPrefHeight(0);
         replay.setPrefWidth(panelBox.getPrefWidth() / 3);
@@ -153,7 +131,6 @@ public class ScientificCalculatorController implements Initializable {
         down.setGraphic(downIcon);
         down.setOnAction((ev) -> {
             getPrev();
-
         });
 
         BorderPane.setAlignment(top, Pos.CENTER);
@@ -168,13 +145,13 @@ public class ScientificCalculatorController implements Initializable {
     }
 
     // FIXME 此处有溢出的可能
-    public void getPrev() {
+    private void getPrev() {
         String prevToCal = Screen.getToCalculate().get(Screen.getToCalculate().size() - 1);
         String prevResult = Screen.getResultList().get(Screen.getResultList().size() - 1);
         if (Screen.getToCalculate().contains(Screen.getTypeField().getText())) {
-            int index2 = Screen.getToCalculate().indexOf(Screen.getTypeField().getText());
-            prevToCal = Screen.getToCalculate().get(index2 - 1);
-            prevResult = Screen.getResultList().get(index2 - 1);
+            int index = Screen.getToCalculate().indexOf(Screen.getTypeField().getText());
+            prevToCal = Screen.getToCalculate().get(index - 1);
+            prevResult = Screen.getResultList().get(index - 1);
             Screen.getTypeField().setText(prevToCal);
             Screen.getResult().setText(prevResult);
         } else {
@@ -183,8 +160,8 @@ public class ScientificCalculatorController implements Initializable {
         }
     }
 
-    // FIXME 这里也应注意
-    public void getNext() {
+    // FIXME 这里也应注意溢出
+    private void getNext() {
         if (Screen.getToCalculate().contains(Screen.getTypeField().getText())) {
             int index2 = Screen.getToCalculate().indexOf(Screen.getTypeField().getText());
             String nextToCal = Screen.getToCalculate().get(index2 + 1);
@@ -195,13 +172,12 @@ public class ScientificCalculatorController implements Initializable {
     }
 
     // 显然这里是左上两个按钮
-    public VBox topBox() {
+    private VBox leftTopBox() {
         VBox shiftAlpha = new VBox();
         shiftAlpha.setPrefWidth(panelBox.getPrefWidth() / 3);
 
         JFXButton shift = new JFXButton();
         VBox.setMargin(shift, new Insets(0, 50, 0, 0));
-
         shift.getStyleClass().add("modeButton");
         shift.getStyleClass().add("modeColor");
         shift.setPrefWidth(shiftAlpha.getPrefWidth() / 3);
@@ -226,192 +202,116 @@ public class ScientificCalculatorController implements Initializable {
         Region reg = new Region();
         VBox.setVgrow(reg, Priority.ALWAYS);
 
-        shiftAlpha.getChildren().addAll(ShiftTopBox(), shift, alpha, reg, shiftHalfSciRow1(), new ScientificButtons().halfRow1());
+        shiftAlpha.getChildren().addAll(
+            shiftLeftTopBox(),
+            shift, alpha, reg,
+            shiftLeftHalfSciRow(),
+            SciBtn.leftRow()
+        );
         return shiftAlpha;
     }
 
     // 这个是左上的标签
-    public VBox ShiftTopBox() {
+    private VBox shiftLeftTopBox() {
         Label shift = new Label("Shift");
         shift.setTextFill(Color.GOLDENROD);
-        // VBox.setMargin(shift, new Insets(0, 50, 0, 0));
 
         Label alpha = new Label("Alpha");
         alpha.setTextFill(Color.MEDIUMVIOLETRED);
-        VBox.setMargin(alpha, new Insets(-10, 0, 0, row3.getPrefWidth() / 2));
+        VBox.setMargin(alpha, new Insets(-10, 0, 0, (panelBox.getPrefWidth() / 3) / 2));
 
-        VBox row3 = new VBox();
-        row3.setPadding(Insets.EMPTY);
-        row3.setPrefWidth(panelBox.getPrefWidth() / 3);
-        row3.getChildren().addAll(shift, alpha);
-        row3.setAlignment(Pos.BOTTOM_LEFT);
-        return row3;
+        VBox row = new VBox();
+        row.setPadding(Insets.EMPTY);
+        row.setPrefWidth(panelBox.getPrefWidth() / 3);
+        row.getChildren().addAll(shift, alpha);
+        row.setAlignment(Pos.BOTTOM_LEFT);
+        return row;
     }
-    
-    // 下面两个为右上的对应部分
-    public VBox rightTopBox() {
-        VBox modeOn = new VBox();
-        modeOn.setPrefWidth(panelBox.getPrefWidth() / 3);
-        modeOn.setAlignment(Pos.TOP_RIGHT);
 
+    // FIXME 原作者什么毛病复制这么多遍，命名还瞎命名
+    private HBox shiftLeftHalfSciRow() {
+        Label factorial = new Label("x!");
+        factorial.setFont(Font.font("verdana", 12));
+        factorial.setTextFill(Color.DARKGOLDENROD);
+        factorial.setPadding(new Insets(0, (panelBox.getPrefWidth() / 3) / 3, 0, 0));
+
+        Label permute = new Label("nPr");
+        permute.setFont(Font.font("verdana", 12));
+        permute.setTextFill(Color.DARKGOLDENROD);
+        permute.setPadding(new Insets(0, 0, 0, 0));
+
+        HBox row = new HBox();
+        row.setPrefWidth(panelBox.getPrefWidth() / 3);
+        row.getChildren().addAll(factorial, permute);
+        return row;
+    }
+
+    // 下面两个为右上的对应部分
+    private VBox rightTopBox() {
         JFXButton mode = new JFXButton();
-        VBox.setMargin(mode, new Insets(-10, (modeOn.getPrefWidth() / 2) - 5, 0, 0));
+        VBox.setMargin(mode, new Insets(-10, (panelBox.getPrefWidth() / 3) / 2, 0, 0));
         mode.getStyleClass().add("modeButton");
         mode.getStyleClass().add("modeColor");
-        mode.setPrefWidth(modeOn.getPrefWidth() / 3);
+        mode.setPrefWidth((panelBox.getPrefWidth() / 3) / 3);
 
         JFXButton on = new JFXButton();
-        VBox.setMargin(on, new Insets(0, 0, 0, modeOn.getPrefWidth() / 2));
+        VBox.setMargin(on, new Insets(0, 0, 0, (panelBox.getPrefWidth() / 3) / 2));
         on.getStyleClass().add("modeButton");
         on.getStyleClass().add("modeColor");
-        on.setPrefWidth(modeOn.getPrefWidth() / 3);
+        on.setPrefWidth((panelBox.getPrefWidth() / 3) / 3);
 
         Region reg = new Region();
         VBox.setVgrow(reg, Priority.ALWAYS);
 
-        modeOn.getChildren().addAll(ShiftRightTopBox(), on, mode, reg, shiftHalf2SciRow1(), new ScientificButtons().half2Row());
+        VBox modeOn = new VBox();
+        modeOn.setPrefWidth(panelBox.getPrefWidth() / 3);
+        modeOn.setAlignment(Pos.TOP_RIGHT);
+        modeOn.getChildren().addAll(
+            shiftRightTopBox(),
+            on, mode, reg,
+            shiftRightHalfSciRow(),
+            SciBtn.rightRow()
+        );
         return modeOn;
     }
 
-    public VBox ShiftRightTopBox() {
-        VBox row3 = new VBox();
-        row3.setPrefWidth(panelBox.getPrefWidth() / 3);
+    private VBox shiftRightTopBox() {
         Label on = new Label("on");
         on.setTextFill(Color.GOLD);
         on.setPadding(new Insets(0, 0, 0, 0));
-        VBox.setMargin(on, new Insets(0, 0, 0, row3.getPrefWidth() / 2));
+        VBox.setMargin(on, new Insets(0, 0, 0, (panelBox.getPrefWidth() / 3) / 2));
 
         Label mode = new Label("mode");
         mode.setTextFill(Color.GOLD);
         mode.setPadding(new Insets(0, 0, 0, 0));
-        VBox.setMargin(mode, new Insets(-10, (row3.getPrefWidth() / 2) - 5, 0, 0));
-        row3.getChildren().addAll(on, mode);
-        return row3;
+        VBox.setMargin(mode, new Insets(-10, (panelBox.getPrefWidth() / 3) / 2 - 5, 0, 0));
+
+        VBox row = new VBox();
+        row.setPrefWidth(panelBox.getPrefWidth() / 3);
+        row.getChildren().addAll(on, mode);
+        return row;
     }
 
-    // FIXME 原作者什么毛病复制这么多遍，命名还瞎命名
-    public HBox shiftHalfSciRow1() {
-        HBox row3 = new HBox();
-        row3.setPrefWidth(panelBox.getPrefWidth() / 3);
-        Label factorial = new Label("x!");
-        factorial.setTextFill(Color.DARKGOLDENROD);
-        factorial.setPadding(new Insets(0, row3.getPrefWidth() / 3, 0, 0));
-
-        Label permute = new Label("nPr");
-        permute.setTextFill(Color.DARKGOLDENROD);
-        permute.setPadding(new Insets(0, 0, 0, 0));
-        row3.getChildren().addAll(factorial, permute);
-        return row3;
-    }
-
-    public HBox shiftHalf2SciRow1() {
-        HBox row3 = new HBox();
-        row3.setPrefWidth(panelBox.getPrefWidth() / 3);
-        Label rec = new Label("");
+    private HBox shiftRightHalfSciRow() {
+        Label rec = new Label("Rec(");
+        rec.setFont(Font.font("verdana", 12));
         rec.setTextFill(Color.DARKGOLDENROD);
-        rec.setPadding(new Insets(0, row3.getPrefWidth() / 3, 0, 0));
+        rec.setPadding(new Insets(0, (panelBox.getPrefWidth() / 3) / 8, 0, 0));
+
+        Label alpha = new Label(":");
+        alpha.setFont(Font.font("verdana", 12));
+        alpha.setTextFill(Color.MEDIUMVIOLETRED);
+        alpha.setPadding(new Insets(0, (panelBox.getPrefWidth() / 3) / 4, 0, 0));
 
         Label cuberoot = new Label("∛");
-        cuberoot.setFont(Font.font("verdana", 18));
+        cuberoot.setFont(Font.font("verdana", 12));
         cuberoot.setTextFill(Color.DARKGOLDENROD);
         cuberoot.setPadding(new Insets(0, 0, 0, 0));
-        row3.getChildren().addAll(rec, cuberoot);
-        return row3;
-    }
 
-    // FIXME 底下的照猫画虎去掉就行了
-
-    public HBox sciShiftRow2() {
-        HBox row1 = new HBox();
-        row1.setPrefWidth(panelBox.getPrefWidth());
-
-        Label improperFract = new Label("d/c");
-        improperFract.setTextFill(Color.DARKGOLDENROD);
-        improperFract.setPadding(new Insets(0, 95, 0, 12));
-
-        Label root = new Label("x√");
-        root.setTextFill(Color.DARKGOLDENROD);
-        root.setPadding(new Insets(0, 15, 0, 40));
-
-        Label tenExp = new Label("10^x");
-        tenExp.setTextFill(Color.DARKGOLDENROD);
-        tenExp.setPadding(new Insets(0, 15, 0, 15));
-
-        Label eExp = new Label("e^x");
-        eExp.setTextFill(Color.DARKGOLDENROD);
-        eExp.setPadding(new Insets(0, 15, 0, 20));
-        row1.getChildren().addAll(improperFract, root, tenExp, eExp);
-        return row1;
-    }
-
-    public HBox sciShiftRow3() {
-        HBox row1 = new HBox();
-        row1.setPrefWidth(panelBox.getPrefWidth());
-
-        Label alphaA = new Label("A");
-        alphaA.setTextFill(Color.MEDIUMVIOLETRED);
-        alphaA.setPadding(new Insets(0, 0, 0, 35));
-
-        Label alphaB = new Label("B");
-        alphaB.setTextFill(Color.MEDIUMVIOLETRED);
-        alphaB.setPadding(new Insets(0, 0, 0, 45));
-
-        Label alphaC = new Label("C");
-        alphaC.setTextFill(Color.MEDIUMVIOLETRED);
-        alphaC.setPadding(new Insets(0, 0, 0, 45));
-
-        Label sinInv = new Label("sin-1");
-        sinInv.setTextFill(Color.DARKGOLDENROD);
-        sinInv.setPadding(new Insets(0, 0, 0, 10));
-
-        Label alphaD = new Label("D");
-        alphaD.setTextFill(Color.MEDIUMVIOLETRED);
-        alphaD.setPadding(new Insets(0, 0, 0, 7));
-
-        Label cosInv = new Label("cos-1");
-        cosInv.setTextFill(Color.DARKGOLDENROD);
-        cosInv.setPadding(new Insets(0, 0, 0, 8));
-
-        Label alphaE = new Label("E");
-        alphaE.setTextFill(Color.MEDIUMVIOLETRED);
-        alphaE.setPadding(new Insets(0, 0, 0, 7));
-
-        Label tanInv = new Label("tan-1");
-        tanInv.setTextFill(Color.DARKGOLDENROD);
-        tanInv.setPadding(new Insets(0, 0, 0, 8));
-
-        Label alphaF = new Label("F");
-        alphaF.setTextFill(Color.MEDIUMVIOLETRED);
-        alphaF.setPadding(new Insets(0, 0, 0, 7));
-        row1.getChildren().addAll(alphaA, alphaB, alphaC, sinInv, alphaD, cosInv, alphaE, tanInv, alphaF);
-        return row1;
-    }
-
-    public HBox sciShiftRow4() {
-        HBox row1 = new HBox();
-        row1.setPrefWidth(panelBox.getPrefWidth());
-
-        Label sto = new Label("STO");
-        sto.setTextFill(Color.DARKGOLDENROD);
-        sto.setPadding(new Insets(0, 0, 0, 10));
-
-        Label alphaX = new Label("X");
-        alphaX.setTextFill(Color.MEDIUMVIOLETRED);
-        alphaX.setPadding(new Insets(0, 0, 0, (panelBox.getPrefWidth() / 2) - 13));
-
-        Label colon = new Label(":");
-        colon.setTextFill(Color.DARKGOLDENROD);
-        colon.setPadding(new Insets(0, 0, 0, 8));
-
-        Label alphaY = new Label("Y");
-        alphaY.setTextFill(Color.MEDIUMVIOLETRED);
-        alphaY.setPadding(new Insets(0, 0, 0, 30));
-
-        Label alphaM = new Label("M");
-        alphaM.setTextFill(Color.MEDIUMVIOLETRED);
-        alphaM.setPadding(new Insets(0, 0, 0, 40));
-        row1.getChildren().addAll(sto, alphaX, colon, alphaY, alphaM);
-        return row1;
+        HBox row = new HBox();
+        row.setPrefWidth(panelBox.getPrefWidth() / 3);
+        row.getChildren().addAll(rec, alpha, cuberoot);
+        return row;
     }
 
 }

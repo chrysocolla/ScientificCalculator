@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 /**
  *
  * @author Idris Opeyemi
+ * @author Aristolochic, wangruory@bupt.edu.cn
  */
 public class Screen {
 
@@ -20,11 +21,7 @@ public class Screen {
     private static ObservableList<String> toCalculate = FXCollections.observableArrayList();
     private static ObservableList<String> resultList = FXCollections.observableArrayList();
 
-    public Screen() {
-    }
-
-    // TODO Migerate this to View
-    public VBox calculateScreen() {
+    public static VBox screenView() {
         VBox calculate = new VBox();
         Text mode = new Text("DEG");
 
@@ -32,7 +29,6 @@ public class Screen {
         typeField.getStyleClass().add("typefont");
         typeField.setFocusColor(Color.WHITE);
         typeField.setUnFocusColor(Color.WHITE);
-        // typeField.setFocusTraversable(false);
         typeField.setEditable(false);
 
         result = new JFXTextField();
@@ -61,16 +57,8 @@ public class Screen {
         return toCalculate;
     }
 
-    // public static void setToCalculate(ObservableList<String> toCalculate) {
-    //     Screen.toCalculate = toCalculate;
-    // }
-
     public static ObservableList<String> getResultList() {
         return resultList;
     }
-
-    // public static void setResultList(ObservableList<String> resultList) {
-    //     Screen.resultList = resultList;
-    // }
 
 }

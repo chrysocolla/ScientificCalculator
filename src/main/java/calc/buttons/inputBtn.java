@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * @author Idris Opeyemi
  * @author Aristolochic, wangruory@bupt.edu.cn
  */
-public class inputBtn {
+public class InputBtn {
 
     private static Integer rowPrefWidth = 350;
     private static Label[][] labelGraph = {
@@ -39,7 +39,7 @@ public class inputBtn {
         {numBtn("0"), numBtn("."), dummyBtn("Exp"), dummyBtn("Ans"), equalsBtn()}
     };
 
-    public static VBox inputBtn() {
+    public static VBox inputBtnView() {
         ArrayList<HBox> hboxArrayList = new ArrayList<HBox>();
         for(Integer i = 0; i < 4; i++) {
             hboxArrayList.add(labelRowBuilder(labelGraph[i]));
@@ -56,7 +56,7 @@ public class inputBtn {
 
     private static HBox btnRowBuilder(JFXButton[] btnList) {
         HBox row = new HBox(10);
-        row.setPrefWidth(350);
+        row.setPrefWidth(rowPrefWidth);
         row.setPadding(new Insets(0, 5, 5, 5));
         row.getChildren().addAll(btnList);
         return row;
@@ -64,7 +64,7 @@ public class inputBtn {
 
     private static HBox labelRowBuilder(Label[] labelList) {
         HBox row = new HBox(10);
-        row.setPrefWidth(350);
+        row.setPrefWidth(rowPrefWidth);
         row.setPadding(new Insets(0, 5, 0, 5));
         row.getChildren().addAll(labelList);
         return row;
@@ -73,51 +73,40 @@ public class inputBtn {
     private static Label shiftLabel(String label) {
         Label shiftLabel = new Label(label);
         shiftLabel.setTextFill(Color.GOLD);
-        shiftLabel.setFont(new Font("Arial", 12));
+        shiftLabel.setFont(new Font("verdana", 12));
         shiftLabel.setPrefWidth(rowPrefWidth / 5);
         shiftLabel.setPadding(new Insets(0, 2, 0, 2));
         return shiftLabel;
     }
 
-    private static JFXButton numBtn(String label) {
-        JFXButton numBtn = new JFXButton(label);
-        setupBaseAttribute(numBtn, "numButton");
-        numBtn.setOnAction((ev) -> {
+    private static JFXButton btn(String label, String text, String styleClass, String result) {
+        JFXButton btn = new JFXButton(label);
+        btn.setButtonType(JFXButton.ButtonType.RAISED);
+        btn.getStyleClass().add(styleClass);
+        btn.setTextFill(Color.WHITE);
+        btn.setPrefWidth(rowPrefWidth / 5);
+        btn.setPrefHeight(25);
+        btn.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
                 Screen.getResult().setText("");
-                Screen.getTypeField().setText("");
+                Screen.getTypeField().setText(result);
                 calculateType.setCalculated(Boolean.FALSE);
             }
-            Screen.getTypeField().appendText(label);
+            Screen.getTypeField().appendText(text);
         });
-        return numBtn;
+        return btn;
+    }
+
+    private static JFXButton numBtn(String label) {
+        return btn(label, label, "numButton", "");
     }
 
     private static JFXButton methodBtn(String label) {
-        JFXButton methodBtn = new JFXButton(label);
-        setupBaseAttribute(methodBtn, "numButton");
-        methodBtn.setOnAction((ev) -> {
-            if (calculateType.getCalculated()) {
-                Screen.getTypeField().setText(Screen.getResult().getText());
-                Screen.getResult().setText("");
-                calculateType.setCalculated(Boolean.FALSE);
-            }
-            Screen.getTypeField().appendText(label);
-        });
-        return methodBtn;
+        return btn(label, label, "numButton", Screen.getResult().getText());
     }
 
     private static JFXButton dummyBtn(String label) {
-        JFXButton dummyBtn = new JFXButton(label);
-        setupBaseAttribute(dummyBtn, "numButton");
-        dummyBtn.setOnAction((ev) -> {
-            if (calculateType.getCalculated()) {
-                Screen.getResult().setText("");
-                Screen.getTypeField().setText("");
-                calculateType.setCalculated(Boolean.FALSE);
-            }
-        });
-        return dummyBtn;
+        return btn(label, "", "numButton", "");
     }
 
     private static JFXButton delBtn() {
@@ -154,7 +143,11 @@ public class inputBtn {
 
     private static JFXButton acBtn() {
         JFXButton acBtn = new JFXButton("AC");
-        setupBaseAttribute(acBtn, "delacButton");
+        acBtn.setButtonType(JFXButton.ButtonType.RAISED);
+        acBtn.getStyleClass().add("delacButton");
+        acBtn.setTextFill(Color.WHITE);
+        acBtn.setPrefWidth(rowPrefWidth / 5);
+        acBtn.setPrefHeight(25);
         acBtn.setOnAction((ev) -> {
             Screen.getResult().setText("");
             Screen.getTypeField().setText("");
@@ -164,9 +157,12 @@ public class inputBtn {
     }
 
     private static JFXButton equalsBtn() {
-        Solve calculateSolve = new Solve();
         JFXButton equalsBtn = new JFXButton("=");
-        setupBaseAttribute(equalsBtn, "numButton");
+        equalsBtn.setButtonType(JFXButton.ButtonType.RAISED);
+        equalsBtn.getStyleClass().add("numButton");
+        equalsBtn.setTextFill(Color.WHITE);
+        equalsBtn.setPrefWidth(rowPrefWidth / 5);
+        equalsBtn.setPrefHeight(25);
         equalsBtn.setOnAction((ev) -> {
             if (calculateType.getCalculated()) {
                 calculateType.setCalculated(Boolean.FALSE);
@@ -175,31 +171,14 @@ public class inputBtn {
                 Screen.getTypeField().appendText("%");
             } else if (!Screen.getTypeField().getText().equals("")) {
                 Screen.getToCalculate().add(Screen.getTypeField().getText().trim());
-                switch (calculateType.getType()) {
-                    case "Scientific":
-                        calculateSolve.solveScientific();
-                        break;
-                    case "Normal":
-                        calculateSolve.solve();
-                        break;
-                    case "Combination":
-                        calculateSolve.combination();
-                        break;
-                    case "Permutation":
-                        calculateSolve.permutation();
-                        break;
+                if (calculateType.getWorkType()) {
+                    Solve.combPerm();
+                } else {
+                    Solve.solveSci();
                 }
             }
         });
         return equalsBtn;
-    }
-
-    private static void setupBaseAttribute(JFXButton btn, String styleClass) {
-        btn.setButtonType(JFXButton.ButtonType.RAISED);
-        btn.getStyleClass().add(styleClass);
-        btn.setTextFill(Color.WHITE);
-        btn.setPrefWidth(rowPrefWidth / 5);
-        btn.setPrefHeight(25);
     }
 
 }

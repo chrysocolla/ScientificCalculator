@@ -6,16 +6,16 @@ package model;
  * @author Aristolochic, wangruory@bupt.edu.cn
  */
 public class calculateType {
-    private static String type;
+    private static Boolean workType = false;
     private static Boolean calculated = false;
     private static Boolean shiftMode = false;
 
-    public static String getType() {
-        return type;
+    public static Boolean getWorkType() {
+        return workType;
     }
 
-    public static void setType(String type) {
-        calculateType.type = type;
+    public static void setWorkType(Boolean workType) {
+        calculateType.workType = workType;
     }
 
     public static Boolean getCalculated() {
@@ -33,5 +33,4 @@ public class calculateType {
     public static void setShiftMode(Boolean shiftMode) {
         calculateType.shiftMode = shiftMode;
     }
-    
 }
