@@ -1,6 +1,8 @@
 # 科学计算器
 
-## 原项目地址 [Scientific Calculator](https://github.com/OpeyemiOluwa12/ScientificCalculator)
+## 原项目地址
+[Scientific Calculator](https://github.com/OpeyemiOluwa12/ScientificCalculator)
+这个大概是为了`clone`下来的人看的，毕竟这是个`fork`下来的项目
 
 ## 运行截图
 ![运行截图](preview.png)
@@ -8,7 +10,7 @@
 ## 我改了啥
 - 增添了`Gradle`配置，一键打包`Uber Jar`；
 - 修改命名，调整目录结构；
-- 尽可能地实现MVC分离，就不同的按钮抽象出方法，方便后续实现目前没有完成的功能（原项目那样的复制粘贴太噩梦了）；
+- 尽可能地实现MVC分离，就不同的按钮抽象出方法，方便后续实现目前没有完成的功能（原项目那样的每个按钮复制粘贴一遍太噩梦了）；
 - 由于`JavaFX`在字体渲染方面默认的尺寸因平台而异，且缺失逻辑像素的概念，因此这里人为规定字体大小，以期望在不同的环境下都不会有显示溢出或截断的效果；
 - 实现窗口可拖动；
 - 真正模拟计算器，按下`SHIFT`再按AC即为关闭程序（原项目没有提供关闭程序的功能，只能使用平台相关的强制关闭快捷键/任务管理器/若非`javaw`运行还可按下`Ctrl`+`C`）；
