@@ -18,6 +18,8 @@
 由于本人`Gradle`是个半吊子，`uberJar`的`task`都是官方文档直接抄下来的，也不知道如果本地没有`Gradle`该怎么运行，看了眼`jfoenix`源码发现直接`gradle run`就行了（没有`Gradle`的是`gradlew run`）
 ~~难为我每次自己构建完了还去从命令行运行`jar`~~
 
+[哈我加了Release](https://github.com/chrysocolla/ScientificCalculator/releases/tag/v0.0-beta.0)
+
 当然了我用的是[Liberica JDK 11 Full](https://bell-sw.com/pages/downloads/#/java-11-lts)，因此自带`OpenJFX`；
 要是你没有的话...要不去下一个，要不手动传入`OpenJFX`模块从命令行调用`.\build\libs\calc-uber.jar`？
 
