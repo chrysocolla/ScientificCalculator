@@ -27,7 +27,6 @@
     -fx-padding: 0;
 }
 .modeButton{
-   
     -fx-background-radius: 10 10 10 10;
     -fx-font-size: 12px;
     -fx-font-family: sans-serif;
@@ -38,7 +37,7 @@
     -fx-background-color:#cccccc ;
 }
 .shiftModeColor{
-     -fx-background-color: goldenrod ;
+    -fx-background-color: goldenrod ;
 }
 
 .sciButton{

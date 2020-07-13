@@ -36,7 +36,6 @@ public class ViewController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     VBox panelBox;
-    int index = 0;
 
     /**
      * Initializes the controller class.
@@ -91,7 +90,6 @@ public class ViewController implements Initializable {
         anchorPane.getChildren().add(panelBox);
     }
 
-    // 这玩意儿独一无二就不去碰它
     private BorderPane replay() {
         BorderPane replay = new BorderPane();
         replay.setPrefHeight(0);
@@ -114,7 +112,9 @@ public class ViewController implements Initializable {
         center.setTextFill(Color.DARKGREY);
         center.getStyleClass().add("replay");
         center.setPrefWidth(panelBox.getPrefWidth());
-        center.setPadding(new Insets(1));
+        center.setFont(new Font("verdana", 12));
+        center.setPadding(new Insets(-5));
+
 
         JFXButton top = new JFXButton();
         top.setButtonType(JFXButton.ButtonType.RAISED);
@@ -145,43 +145,43 @@ public class ViewController implements Initializable {
         return replay;
     }
 
-    // FIXME 此处有溢出的可能
     private void getPrev() {
-        String prevToCal = Screen.getToCalculate().get(Screen.getToCalculate().size() - 1);
-        String prevResult = Screen.getResultList().get(Screen.getResultList().size() - 1);
-        if (Screen.getToCalculate().contains(Screen.getTypeField().getText())) {
-            int index = Screen.getToCalculate().indexOf(Screen.getTypeField().getText());
-            prevToCal = Screen.getToCalculate().get(index - 1);
-            prevResult = Screen.getResultList().get(index - 1);
-            Screen.getTypeField().setText(prevToCal);
-            Screen.getResult().setText(prevResult);
+        Integer size = Screen.getToCalculate().size();
+        if (size == 0) {
+            return;
         } else {
-            Screen.getTypeField().setText(prevToCal);
-            Screen.getResult().setText(prevResult);
+            String prevToCal = Screen.getToCalculate().get(Screen.getToCalculate().size() - 1);
+            String prevResult = Screen.getResultList().get(Screen.getResultList().size() - 1);
+            if (Screen.getToCalculate().contains(Screen.getTypeField().getText())) {
+                Integer index = Screen.getToCalculate().indexOf(Screen.getTypeField().getText());
+                prevToCal = Screen.getToCalculate().get(index <= 0 ? 0 : index - 1);
+                prevResult = Screen.getResultList().get(index <= 0 ? 0 : index - 1);
+                Screen.getTypeField().setText(prevToCal);
+                Screen.getResult().setText(prevResult);
+            } else {
+                Screen.getTypeField().setText(prevToCal);
+                Screen.getResult().setText(prevResult);
+            }
         }
     }
 
-    // FIXME 这里也应注意溢出
     private void getNext() {
         if (Screen.getToCalculate().contains(Screen.getTypeField().getText())) {
-            int index2 = Screen.getToCalculate().indexOf(Screen.getTypeField().getText());
-            String nextToCal = Screen.getToCalculate().get(index2 + 1);
-            String nextResult = Screen.getResultList().get(index2 + 1);
+            Integer index = Screen.getToCalculate().indexOf(Screen.getTypeField().getText());
+            Integer size = Screen.getToCalculate().size();
+            String nextToCal = Screen.getToCalculate().get(index >= size - 1 ? size - 1 : index + 1);
+            String nextResult = Screen.getResultList().get(index >= size - 1 ? size - 1 : index + 1);
             Screen.getTypeField().setText(nextToCal);
             Screen.getResult().setText(nextResult);
         }
     }
 
-    // 显然这里是左上两个按钮
     private VBox leftTopBox() {
-        VBox shiftAlpha = new VBox();
-        shiftAlpha.setPrefWidth(panelBox.getPrefWidth() / 3);
-
         JFXButton shift = new JFXButton();
-        VBox.setMargin(shift, new Insets(0, 50, 0, 0));
+        VBox.setMargin(shift, new Insets(0, (panelBox.getPrefWidth() / 3) / 2, 0, 0));
         shift.getStyleClass().add("modeButton");
         shift.getStyleClass().add("modeColor");
-        shift.setPrefWidth(shiftAlpha.getPrefWidth() / 3);
+        shift.setPrefWidth((panelBox.getPrefWidth() / 3) / 3);
         shift.setOnAction((ev) -> {
             if (shift.getStyleClass().contains("modeColor")) {
                 calculateType.setShiftMode(Boolean.TRUE);
@@ -195,14 +195,16 @@ public class ViewController implements Initializable {
         });
 
         JFXButton alpha = new JFXButton();
-        VBox.setMargin(alpha, new Insets(-10, 0, 0, shiftAlpha.getPrefWidth() / 2));
+        VBox.setMargin(alpha, new Insets(-10, 0, 0, (panelBox.getPrefWidth() / 3) / 2 - 5));
         alpha.getStyleClass().add("modeButton");
         alpha.getStyleClass().add("modeColor");
-        alpha.setPrefWidth(shiftAlpha.getPrefWidth() / 3);
+        alpha.setPrefWidth((panelBox.getPrefWidth() / 3) / 3);
 
         Region reg = new Region();
         VBox.setVgrow(reg, Priority.ALWAYS);
 
+        VBox shiftAlpha = new VBox();
+        shiftAlpha.setPrefWidth(panelBox.getPrefWidth() / 3);
         shiftAlpha.getChildren().addAll(
             shiftLeftTopBox(),
             shift, alpha, reg,
@@ -212,14 +214,16 @@ public class ViewController implements Initializable {
         return shiftAlpha;
     }
 
-    // 这个是左上的标签
     private VBox shiftLeftTopBox() {
-        Label shift = new Label("Shift");
+        Label shift = new Label("SHIFT");
+        shift.setFont(new Font("verdana", 13));
         shift.setTextFill(Color.GOLDENROD);
+        VBox.setMargin(shift, new Insets(5, 0, 0, 0));
 
-        Label alpha = new Label("Alpha");
+        Label alpha = new Label("ALPHA");
+        alpha.setFont(new Font("verdana", 13));
         alpha.setTextFill(Color.MEDIUMVIOLETRED);
-        VBox.setMargin(alpha, new Insets(-10, 0, 0, (panelBox.getPrefWidth() / 3) / 2));
+        VBox.setMargin(alpha, new Insets(-10, 0, 0, (panelBox.getPrefWidth() / 3) / 2 - 10));
 
         VBox row = new VBox();
         row.setPadding(Insets.EMPTY);
@@ -229,12 +233,11 @@ public class ViewController implements Initializable {
         return row;
     }
 
-    // FIXME 原作者什么毛病复制这么多遍，命名还瞎命名
     private HBox shiftLeftHalfSciRow() {
         Label factorial = new Label("x!");
         factorial.setFont(Font.font("verdana", 12));
         factorial.setTextFill(Color.DARKGOLDENROD);
-        factorial.setPadding(new Insets(0, (panelBox.getPrefWidth() / 3) / 3, 0, 0));
+        factorial.setPadding(new Insets(0, (panelBox.getPrefWidth() / 3) / 3 - 10, 0, 15));
 
         Label permute = new Label("nPr");
         permute.setFont(Font.font("verdana", 12));
@@ -247,10 +250,9 @@ public class ViewController implements Initializable {
         return row;
     }
 
-    // 下面两个为右上的对应部分
     private VBox rightTopBox() {
         JFXButton mode = new JFXButton();
-        VBox.setMargin(mode, new Insets(-10, (panelBox.getPrefWidth() / 3) / 2, 0, 0));
+        VBox.setMargin(mode, new Insets(-10, (panelBox.getPrefWidth() / 3) / 2 - 5, 0, 0));
         mode.getStyleClass().add("modeButton");
         mode.getStyleClass().add("modeColor");
         mode.setPrefWidth((panelBox.getPrefWidth() / 3) / 3);
@@ -277,15 +279,15 @@ public class ViewController implements Initializable {
     }
 
     private VBox shiftRightTopBox() {
-        Label on = new Label("on");
-        on.setTextFill(Color.GOLD);
-        on.setPadding(new Insets(0, 0, 0, 0));
-        VBox.setMargin(on, new Insets(0, 0, 0, (panelBox.getPrefWidth() / 3) / 2));
+        Label on = new Label("ON");
+        on.setTextFill(Color.GRAY);
+        on.setFont(new Font("verdana", 13));
+        VBox.setMargin(on, new Insets(5, 0, 0, (panelBox.getPrefWidth() / 3) / 2 + 15));
 
-        Label mode = new Label("mode");
-        mode.setTextFill(Color.GOLD);
-        mode.setPadding(new Insets(0, 0, 0, 0));
-        VBox.setMargin(mode, new Insets(-10, (panelBox.getPrefWidth() / 3) / 2 - 5, 0, 0));
+        Label mode = new Label("MODE");
+        mode.setTextFill(Color.GRAY);
+        mode.setFont(new Font("verdana", 13));
+        VBox.setMargin(mode, new Insets(-10, 0, 0, 10));
 
         VBox row = new VBox();
         row.setPrefWidth(panelBox.getPrefWidth() / 3);
@@ -297,7 +299,7 @@ public class ViewController implements Initializable {
         Label rec = new Label("Rec(");
         rec.setFont(Font.font("verdana", 12));
         rec.setTextFill(Color.DARKGOLDENROD);
-        rec.setPadding(new Insets(0, (panelBox.getPrefWidth() / 3) / 8, 0, 0));
+        rec.setPadding(new Insets(0, (panelBox.getPrefWidth() / 3) / 12, 0, 10));
 
         Label alpha = new Label(":");
         alpha.setFont(Font.font("verdana", 12));

@@ -3,8 +3,8 @@ package viewcontroller.components;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.geometry.Insets;
-import javafx.geometry.NodeOrientation;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -22,7 +22,7 @@ public class Screen {
 
     public static VBox screenView() {
         VBox calculate = new VBox();
-        Text mode = new Text("DEG");
+        Text mode = new Text("RAD");
 
         typeField = new JFXTextField();
         typeField.getStyleClass().add("typefont");
@@ -36,7 +36,7 @@ public class Screen {
         result.getStyleClass().add("resultfont");
         result.setFocusColor(Color.WHITE);
         result.setUnFocusColor(Color.WHITE);
-        result.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        result.setAlignment(Pos.BASELINE_RIGHT);
 
         calculate.getChildren().addAll(mode, typeField, result);
         calculate.setPadding(new Insets(5, 5, 5, 5));

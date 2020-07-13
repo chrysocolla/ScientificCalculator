@@ -105,16 +105,17 @@ public class SciBtn {
     private static Label shiftLabel(String label, Boolean shift) {
         Label shiftLabel = new Label(label);
         shiftLabel.setTextFill(shift ? Color.GOLD : Color.VIOLET);
-        shiftLabel.setFont(new Font("verdana", 12));
+        shiftLabel.setFont(new Font("verdana", shift ? 10 : 12));
         shiftLabel.setPrefWidth(rowPrefWidth / 12);
-        shiftLabel.setPadding(shift ? new Insets(0, 3, 0, 0) : new Insets(0, 0, 0, 3));
+        shiftLabel.setPadding(shift ? new Insets(0, -20, 0, -6) : new Insets(0, 0, 0, 5));
         return shiftLabel;
     }
 
     private static Label bigShiftLabel(String label) {
         Label bigShiftLabel = shiftLabel(label, Boolean.TRUE);
         bigShiftLabel.setPrefWidth(rowPrefWidth / 6);
-        bigShiftLabel.setPadding(new Insets(0, 3, 0, 3));
+        bigShiftLabel.setFont(new Font("verdana", 12));
+        bigShiftLabel.setPadding(new Insets(0, 2, 0, 3));
         return bigShiftLabel;
     }
 
@@ -161,7 +162,7 @@ public class SciBtn {
     // 下方为按钮组
 
     private static JFXButton mixedFrac() {
-        Text biga = new Text("a");
+        Text biga = new Text("  a");
         Text small = new Text(" b/c");
         small.setFill(Color.WHITE);
         biga.setFill(Color.WHITE);

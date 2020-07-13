@@ -12,17 +12,16 @@ import javax.script.ScriptException;
  * @author Aristolochic, wangruory@bupt.edu.cn
  */
 public class Solve {
-
-    private static ScriptEngine engine = new ScriptEngineManager().getEngineByExtension("js");
+    private static ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 
     public static void solveSci() {
         String calculate = Screen.getTypeField().getText();
         calculate = calculate.replace("sin-1", "Math.asin").
                 replace("cos-1", "Math.acos").
                 replace("tan-1", "Math.atan").
-                replace("sin", "Math.sin").
-                replace("cos", "Math.cos").
-                replace("tan", "Math.tan").
+                replaceAll("(?<![a])sin", "Math.sin").
+                replaceAll("(?<![a])cos", "Math.cos").
+                replaceAll("(?<![a])tan", "Math.tan").
                 replace("√", "Math.sqrt").
                 replace("∛", "Math.cbrt").
                 replace("π", "Math.PI").
@@ -36,13 +35,12 @@ public class Solve {
             Object answer = engine.eval(calculate);
             Screen.getResultList().add(answer.toString());
             Screen.getResult().setText(answer.toString());
+            Screen.getResult().selectEnd();
             calculateType.setCalculated(Boolean.TRUE);
         } catch (ScriptException e) {
-            // Something went wrong
             Screen.getResultList().add("SYNTAX ERROR");
             Screen.getResult().setText("SYNTAX ERROR");
             calculateType.setCalculated(Boolean.TRUE);
-            // e.printStackTrace();
         }
     }
 

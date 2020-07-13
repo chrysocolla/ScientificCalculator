@@ -2,6 +2,7 @@ package viewcontroller.components;
 
 import model.calculateType;
 import com.jfoenix.controls.JFXButton;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.CacheHint;
 import javafx.scene.control.ContentDisplay;
@@ -36,7 +37,7 @@ public class InputBtn {
         {numBtn("7"), numBtn("8"), numBtn("9"), delBtn(), acBtn()},
         {numBtn("4"), numBtn("5"), numBtn("6"), methodBtn("×"), methodBtn("÷")},
         {numBtn("1"), numBtn("2"), numBtn("3"), methodBtn("+"), methodBtn("-")},
-        {numBtn("0"), numBtn("."), dummyBtn("Exp"), dummyBtn("Ans"), equalsBtn()}
+        {numBtn("0"), numBtn("."), expBtn(), ansBtn(), equalsBtn()}
     };
 
     public static VBox inputBtnView() {
@@ -75,7 +76,7 @@ public class InputBtn {
         shiftLabel.setTextFill(Color.GOLD);
         shiftLabel.setFont(new Font("verdana", 12));
         shiftLabel.setPrefWidth(rowPrefWidth / 5);
-        shiftLabel.setPadding(new Insets(0, 2, 0, 2));
+        shiftLabel.setPadding(new Insets(0, 5, 0, 5));
         return shiftLabel;
     }
 
@@ -119,8 +120,28 @@ public class InputBtn {
         return btn;
     }
 
-    private static JFXButton dummyBtn(String label) {
-        return btn(label, "", "numButton");
+    private static JFXButton expBtn() {
+        JFXButton expBtn = new JFXButton("Exp");
+        expBtn.setButtonType(JFXButton.ButtonType.RAISED);
+        expBtn.getStyleClass().add("numButton");
+        expBtn.setTextFill(Color.WHITE);
+        expBtn.setPrefWidth(rowPrefWidth / 5);
+        expBtn.setPrefHeight(25);
+        expBtn.setOnAction((ev) -> {
+            if (calculateType.getCalculated()) {
+                Screen.getTypeField().setText("");
+                Screen.getResult().setText("");
+                calculateType.setCalculated(Boolean.FALSE);
+            }
+            if (calculateType.getShiftMode()) {
+                Screen.getTypeField().appendText("π");
+            }
+        });
+        return expBtn;
+    }
+
+    private static JFXButton ansBtn() {
+        return btn("Ans", "", "numButton");
     }
 
     private static JFXButton delBtn() {
@@ -166,6 +187,9 @@ public class InputBtn {
             Screen.getResult().setText("");
             Screen.getTypeField().setText("");
             calculateType.setCalculated(Boolean.FALSE);
+            if (calculateType.getShiftMode()) {
+                Platform.exit();
+            }
         });
         return acBtn;
     }
